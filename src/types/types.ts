@@ -1,4 +1,4 @@
 export interface ICat {
-  id: number;
+  id: string;
   url: string;
 }

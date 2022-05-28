@@ -1,7 +1,7 @@
 .cats {
     margin-top: 53px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
     gap: 18px;
 }
 

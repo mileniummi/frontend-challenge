@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import "./cats.css";
+import CatService from "../../services/CatService";
 interface CatProps {
+  imageId: string;
   imageUrl: string;
+  catService: CatService;
+  isFavouriteCat: boolean;
 }
 
-const Cat: React.FC<CatProps> = ({ imageUrl }) => {
-  const [isFavourite, setIsFavourite] = useState<boolean>(false);
+const Cat: React.FC<CatProps> = ({ imageUrl, imageId, catService, isFavouriteCat }) => {
+  const [isFavourite, setIsFavourite] = useState<boolean>(isFavouriteCat);
 
   return (
     <div className="cat" onMouseOver={(event) => event.stopPropagation()}>
@@ -34,6 +38,7 @@ const Cat: React.FC<CatProps> = ({ imageUrl }) => {
               xmlns="http://www.w3.org/2000/svg"
               onClick={(e) => {
                 setIsFavourite(true);
+                catService.addToFavourite(imageId);
               }}
             >
               <path
