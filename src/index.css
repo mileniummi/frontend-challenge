@@ -1,0 +1,22 @@
+*, :before, :after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+#root {
+    --lighter-blue: #2196F3;
+    --light-blue: #1E88E5;
+    --orange: #F24E1E;
+    --bright-orange: #FF3A00;
+    font-family: "Roboto", sans-serif;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 1316px;
+    margin: 0 auto;
+}
