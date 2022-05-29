@@ -4,15 +4,12 @@ import { ICat } from "../types/types";
 export default class CatService {
   constructor(private apiPath = process.env.REACT_APP_API_PATH, private apiKey = process.env.REACT_APP_API_KEY) {}
 
-  async fetch(count: number): Promise<ICat[]> {
-    const newCats: ICat[] = [];
-    for (let i = 0; i < count; i++) {
-      const response = await axios.get(`${this.apiPath}/v1/images/search`);
-      newCats.push(response.data[0]);
-    }
-    return newCats;
+  async fetch(limit: number, page: number): Promise<Promise<ICat[]> | Error> {
+    const response = await axios.get(`${this.apiPath}/v1/images/search`, { params: { limit, page } });
+    return response.data;
   }
 
+  // that's for future when favourite cats will not be saved on client
   async addToFavourite(image_id: string): Promise<void> {
     await axios.post(
       `${this.apiPath}/v1/favourites`,

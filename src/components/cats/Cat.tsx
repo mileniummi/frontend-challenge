@@ -1,22 +1,40 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./cats.css";
-import CatService from "../../services/CatService";
+import { FavouriteContextInterface, FavouriteCatsCtx } from "../../context/favouriteCatsContext";
+import CatImage from "./CatImage";
 interface CatProps {
   imageId: string;
   imageUrl: string;
-  catService: CatService;
   isFavouriteCat: boolean;
 }
 
-const Cat: React.FC<CatProps> = ({ imageUrl, imageId, catService, isFavouriteCat }) => {
+const Cat: React.FC<CatProps> = ({ imageUrl, imageId, isFavouriteCat }) => {
   const [isFavourite, setIsFavourite] = useState<boolean>(isFavouriteCat);
+  const { addToFavourite, removeFromFavourite } = useContext(FavouriteCatsCtx) as FavouriteContextInterface;
+
+  const handleRemoveFromFavourite = () => {
+    setIsFavourite(false);
+    removeFromFavourite({ id: imageId, url: imageUrl });
+  };
+
+  const handleAddToFavourite = () => {
+    setIsFavourite(true);
+    addToFavourite({ id: imageId, url: imageUrl });
+  };
 
   return (
-    <div className="cat" onMouseOver={(event) => event.stopPropagation()}>
+    <div className="cat">
       <div className="cat__wrapper">
-        <img className="cat__image" src={imageUrl} alt="cat" />
+        <CatImage src={imageUrl} />
         {isFavourite ? (
-          <svg className="cat__heart" width="40" height="37" viewBox="0 0 40 37" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            onClick={handleRemoveFromFavourite}
+            className="cat__heart"
+            width="40"
+            height="37"
+            viewBox="0 0 40 37"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M20 36.7L17.1 34.06C6.8 24.72 0 18.56 0 11C0 4.84 4.84 0 11 0C14.48 0 17.82 1.62 20 4.18C22.18 1.62 25.52 0 29 0C35.16 0 40 4.84 40 11C40 18.56 33.2 24.72 22.9 34.08L20 36.7Z"
               fill="var(--bright-orange)"
@@ -36,10 +54,7 @@ const Cat: React.FC<CatProps> = ({ imageUrl, imageId, catService, isFavouriteCat
               height="37"
               viewBox="0 0 40 37"
               xmlns="http://www.w3.org/2000/svg"
-              onClick={(e) => {
-                setIsFavourite(true);
-                catService.addToFavourite(imageId);
-              }}
+              onClick={handleAddToFavourite}
             >
               <path
                 d="M20 36.7L17.1 34.06C6.8 24.72 0 18.56 0 11C0 4.84 4.84 0 11 0C14.48 0 17.82 1.62 20 4.18C22.18 1.62 25.52 0 29 0C35.16 0 40 4.84 40 11C40 18.56 33.2 24.72 22.9 34.08L20 36.7Z"
