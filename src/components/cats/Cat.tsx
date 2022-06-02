@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import "./cats.css";
 import { FavouriteContextInterface, FavouriteCatsCtx } from "../../context/favouriteCatsContext";
-import CatImage from "./CatImage";
 interface CatProps {
   imageId: string;
   imageUrl: string;
@@ -11,7 +10,6 @@ interface CatProps {
 const Cat: React.FC<CatProps> = ({ imageUrl, imageId, isFavouriteCat }) => {
   const [isFavourite, setIsFavourite] = useState<boolean>(isFavouriteCat);
   const { addToFavourite, removeFromFavourite } = useContext(FavouriteCatsCtx) as FavouriteContextInterface;
-
   const handleRemoveFromFavourite = () => {
     setIsFavourite(false);
     removeFromFavourite({ id: imageId, url: imageUrl });
@@ -25,7 +23,7 @@ const Cat: React.FC<CatProps> = ({ imageUrl, imageId, isFavouriteCat }) => {
   return (
     <div className="cat">
       <div className="cat__wrapper">
-        <CatImage src={imageUrl} />
+        <img alt="cat" className="cat__image" src={imageUrl} />
         {isFavourite ? (
           <svg
             onClick={handleRemoveFromFavourite}
@@ -50,6 +48,7 @@ const Cat: React.FC<CatProps> = ({ imageUrl, imageId, isFavouriteCat }) => {
             </svg>
             <svg
               className="cat__heart--on-hover"
+              display="block"
               width="40"
               height="37"
               viewBox="0 0 40 37"

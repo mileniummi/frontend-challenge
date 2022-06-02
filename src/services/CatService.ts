@@ -5,8 +5,12 @@ export default class CatService {
   constructor(private apiPath = process.env.REACT_APP_API_PATH, private apiKey = process.env.REACT_APP_API_KEY) {}
 
   async fetch(limit: number, page: number): Promise<Promise<ICat[]> | Error> {
-    const response = await axios.get(`${this.apiPath}/v1/images/search`, { params: { limit, page } });
-    return response.data;
+    try {
+      const response = await axios.get(`${this.apiPath}/v1/images/search`, { params: { limit, page } });
+      return response.data;
+    } catch (e) {
+      return new Error();
+    }
   }
 
   // that's for future when favourite cats will not be saved on client

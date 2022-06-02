@@ -52,9 +52,6 @@
     opacity: 1;
 }
 
-.cat__heart:hover{
-    opacity: 0;
-}
 
 .cat__heart:hover + .cat__heart--on-hover{
     display: block;

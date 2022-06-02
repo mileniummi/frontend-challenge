@@ -16,6 +16,7 @@ function UseCatSearch(pageNumber: number) {
         setCats((prevCats) => [...prevCats, ...newCats]);
         setIsLoading(false);
       } else {
+        setIsLoading(false);
         setError("Что то пошло не так при загрузке котиков");
       }
     };
